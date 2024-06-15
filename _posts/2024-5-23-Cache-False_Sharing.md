@@ -159,30 +159,7 @@ The cache is usually divided into three levels where you have less memory but fa
 
 If we look at our `SharedState` structure, we have four integers, each with 64 bits (8 bytes). When the CPU asks to read one of the counters, the whole of `SharedState` will be brought into the CPU registers (plus some trash at the end, which we don't mind). As depicted in the figure below:
 
-```mermaid
-flowchart TB
-
-    subgraph CPU
-        r0["register<br>|counter1|counter2|counter3|counter4|.|.|.|.|"]
-    end
-
-    CPU <--> |read counter2| cache
-
-    subgraph cache
-        subgraph cacheline 1
-            v0["counter0"]
-            v1["counter1"]
-            v2["counter2"]
-            v3["counter3"]
-            v4["."]
-            v5["."]
-            v6["."]
-            v7["."]
-        end
-    end
-
-```
-
+![CPU-cache](images/mermaid-diagram-2024-06-15-165615)
 The problem here is that each counter is also atomic. That means the hardware implements special operations on them. When counting, as we did in our example, these operations are something like `read-modify-write`. This means, for the duration of the whole operation that cache line is "locked". So, when multiple threads try to access the same cache line, there is some waiting involved. As you saw in the benchmarks, that is quite catastrophic.
 
 
