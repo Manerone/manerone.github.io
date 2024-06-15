@@ -3,6 +3,8 @@ layout: post
 title: Cache False Sharing
 ---
 
+Let's talk about False Sharing!
+
 Source code is [here](https://github.com/Manerone/HardwareEffects/tree/main/cache_false_sharing).
 
 ## Filter and count
