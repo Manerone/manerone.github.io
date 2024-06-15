@@ -13,16 +13,9 @@
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
 
     <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
   </head>
 
   <body>
-    <pre><code class="language-mermaid">graph LR
-      A--&gt;B
-      </code></pre>
-      <div class="mermaid">graph LR
-        A--&gt;B
-        </div>
     <div class="wrapper-masthead">
       <div class="container">
         <header class="masthead clearfix">
@@ -55,16 +48,4 @@
 
     {% include analytics.html %}
   </body>
-  <script>
-    var config = {
-        startOnLoad:true,
-        theme: 'forest',
-        flowchart:{
-                useMaxWidth:false,
-                htmlLabels:true
-            }
-    };
-    mermaid.initialize(config);
-    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-    </script>
 </html>
