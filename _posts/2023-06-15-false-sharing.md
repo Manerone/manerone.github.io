@@ -32,7 +32,8 @@ struct SharedState {
 };
 {% endhighlight %}
 
-{: .box-note} Why do we use `std::atomic`? The cpu seems to be smart enough to avoid false sharing if we only have `int64_t`, so atomic is necessary otherwise the example doesn't work.
+{: .box-note}
+Why do we use `std::atomic`? The cpu seems to be smart enough to avoid false sharing if we only have `int64_t`, so atomic is necessary otherwise the example doesn't work.
 
 * **Table:** represents the data that will be filtered. To make coding the example easier, the constructor creates a table with four columns, and 1.000.000 rows.
 {% highlight c++ linenos %}
