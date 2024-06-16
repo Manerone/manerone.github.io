@@ -12,12 +12,16 @@ readtime: true
 
 In this post I want to talk a bit about the phenomena of false sharing of cache lines. I think it will be easier to understand if we walk through it as if we are telling a story.
 
-## Filter and count
+## Counting filters
 
-Imagine you are developing a system, a database or something else. At some point, you need to filter several vectors and maintain a counter of the times the filter condition was met.
+Imagine you are developing a system (maybe a new database). As a feature of your system, one of the operations it provides is the ability to count how many times a certain condition was met for a set of data.
 
-For example, in a database this could be some sort of aggregation across multiple columns. 
-Let's set up some basic structures we will use to solve this task:
+In databases, this is usually seen either as an AGGREGATION, or a simple WHERE clause with a COUNT.
+
+What can we do to solve that? The solution seems to be quite straight forward. Given a vector and a filter, 
+everytime the condition is met increase a counter by one.
+
+So, lets write it. First, lets set up some basic structures we will use to solve this task:
 
 * **SharedState:** where you keep the state of your computation. In our example here, we have four counters for four different filters.
 
@@ -95,7 +99,7 @@ static void BM_SINGLE_THREAD(benchmark::State& gb){
 }
 {% endhighlight %}
 
-The code seems fine, every column goes through the process of filter  and counting. What rests now is to execute benchmark the solution.
+The code seems fine, every column goes through the process of filter  and counting. What rests now is to benchmark the solution.
 
 ```
 ------------------------------------------------------------------------
