@@ -2,12 +2,15 @@
 layout: post
 title: Cache False Sharing
 subtitle: The perils of cache sharing
-# gh-repo: daattali/beautiful-jekyll
+gh-repo: manerone/HardwareEffects
 gh-badge: [star, fork, follow]
 tags: [performance, cache]
 comments: false
 author: Matheus Nerone
+readtime: true
 ---
+
+In this post I want to talk a bit about the phenomena of false sharing of cache lines. I think it will be easier to understand if we walk through it as if we are telling a story.
 
 ## Filter and count
 
@@ -29,7 +32,7 @@ struct SharedState {
 };
 {% endhighlight %}
 
-> Why do we use `std::atomic`? The cpu seems to be smart enough to avoid false sharing if we only have `int64_t`, so atomic is necessary otherwise the example doesn't work.
+{: .box-note} Why do we use `std::atomic`? The cpu seems to be smart enough to avoid false sharing if we only have `int64_t`, so atomic is necessary otherwise the example doesn't work.
 
 * **Table:** represents the data that will be filtered. To make coding the example easier, the constructor creates a table with four columns, and 1.000.000 rows.
 {% highlight c++ linenos %}
